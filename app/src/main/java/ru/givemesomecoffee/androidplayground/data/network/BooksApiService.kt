@@ -9,7 +9,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 import retrofit2.http.GET
 import retrofit2.http.Query
-import ru.givemesomecoffee.androidplayground.data.network.entity.BookApi
+import ru.givemesomecoffee.androidplayground.data.network.entity.BookApiResponse
 
 private const val BASE_URL =
     "https://www.googleapis.com/books/v1/"
@@ -33,7 +33,7 @@ private val retrofit = Retrofit.Builder()
 
 interface BookApiService {
     @GET("volumes")
-    suspend fun getPhotos(@Query("q") author: String = "test"): BookApi
+    suspend fun getPhotos(@Query("q") categories: String = "fiction"): BookApiResponse
 }
 
 object BooksApi {

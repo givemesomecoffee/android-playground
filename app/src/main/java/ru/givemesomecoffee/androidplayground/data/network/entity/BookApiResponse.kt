@@ -1,6 +1,6 @@
 package ru.givemesomecoffee.androidplayground.data.network.entity
 
-class BookApi(val items: List<Item>)
+class BookApiResponse(val items: List<Item>)
 
 data class Item(
     val id : String,
