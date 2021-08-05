@@ -1,35 +1,39 @@
-package ru.givemesomecoffee.androidplayground.network
+package ru.givemesomecoffee.androidplayground.data.network
 
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
+
 import retrofit2.http.GET
 import retrofit2.http.Query
+import ru.givemesomecoffee.androidplayground.data.network.entity.BookApi
 
 private const val BASE_URL =
     "https://www.googleapis.com/books/v1/"
 private const val TOKEN =
     "AIzaSyDIPaE_7MbnDrPkxVPvD3flW0FElTOWRtA"
 
-
+private val moshi = Moshi.Builder()
+    .add(KotlinJsonAdapterFactory())
+    .build()
 val interceptor = Interceptor { chain ->
-    val request = chain.request().newBuilder().addHeader("key", TOKEN).build();
+    val request = chain.request().newBuilder().addHeader("key", TOKEN).build()
     chain.proceed(request)
 }
 val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()
 
-
-
 private val retrofit = Retrofit.Builder()
-    .addConverterFactory(ScalarsConverterFactory.create())
+    .addConverterFactory(MoshiConverterFactory.create(moshi))
     .client(client)
     .baseUrl(BASE_URL)
     .build()
 
 interface BookApiService {
     @GET("volumes")
-    suspend fun getPhotos(@Query("q") author: String = "test"): String
+    suspend fun getPhotos(@Query("q") author: String = "test"): BookApi
 }
 
 object BooksApi {

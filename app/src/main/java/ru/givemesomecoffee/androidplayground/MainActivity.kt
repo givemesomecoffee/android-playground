@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import ru.givemesomecoffee.androidplayground.network.BooksApi
+import ru.givemesomecoffee.androidplayground.data.network.BooksApi
 
 
 class MainActivity : AppCompatActivity() {
@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         lifecycleScope.launch {
             val listResult = BooksApi.retrofitService.getPhotos()
-            findViewById<TextView>(R.id.text).text = listResult
+            findViewById<TextView>(R.id.text).text = listResult.toString()
         }
     }
 }
