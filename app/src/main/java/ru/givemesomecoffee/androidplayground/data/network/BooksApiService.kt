@@ -33,7 +33,7 @@ private val retrofit = Retrofit.Builder()
 
 interface BookApiService {
     @GET("volumes")
-    suspend fun getPhotos(@Query("q") categories: String = "fiction"): BookApiResponse
+    suspend fun getPhotos(@Query("q") category: String = "wood"): BookApiResponse
 }
 
 object BooksApi {
